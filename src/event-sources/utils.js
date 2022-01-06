@@ -91,12 +91,13 @@ function getEventSourceNameBasedOnEvent ({
     const functionsExtensionVersion = process.env.FUNCTIONS_EXTENSION_VERSION
 
     if (!functionsExtensionVersion) {
-      console.warn('The environment variable \'FUNCTIONS_EXTENSION_VERSION\' is not set. Only the function runtime \'~3\' is supported.')
-    } else if (functionsExtensionVersion !== '~3') {
-      console.warn('Only the function runtime \'~3\' is supported.')
+      console.warn('The environment variable \'FUNCTIONS_EXTENSION_VERSION\' is not set. Only the function runtime \'~3\' or \'~4\' is supported.')
+    } else if (['~3', '~4'].indexOf(functionsExtensionVersion) === -1) {
+      console.warn('Only the function runtime \'~3\' or \'~4\' is supported.')
     }
 
-    return 'AZURE_HTTP_FUNCTION_V3'
+    const version = functionsExtensionVersion[functionsExtensionVersion.length - 1]
+    return 'AZURE_HTTP_FUNCTION_V' + version
   }
   if (
     event.version &&

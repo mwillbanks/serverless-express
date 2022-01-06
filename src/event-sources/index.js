@@ -7,6 +7,7 @@ const awsSqsEventSource = require('./aws/sqs')
 const awsDynamoDbEventSource = require('./aws/dynamodb')
 const azureHttpFunctionV3EventSource = require('./azure/http-function-runtime-v3')
 const awsEventBridgeEventSource = require('./aws/eventbridge')
+const azureHttpFunctionV4EventSource = require('./azure/http-function-runtime-v4')
 
 function getEventSource ({ eventSourceName }) {
   switch (eventSourceName) {
@@ -28,6 +29,8 @@ function getEventSource ({ eventSourceName }) {
       return awsSqsEventSource
     case 'AWS_EVENTBRIDGE':
       return awsEventBridgeEventSource
+    case 'AZURE_HTTP_FUNCTION_V4':
+      return azureHttpFunctionV4EventSource
     default:
       throw new Error('Couldn\'t detect valid event source.')
   }
